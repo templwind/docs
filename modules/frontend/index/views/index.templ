@@ -1,0 +1,27 @@
+package views
+
+import (
+	"net/http"
+
+	"github.com/templwind/templwind/layouts/base"
+)
+
+templ Index(r *http.Request) {
+	@base.Layout(
+		base.WithHttpRequest(r),
+		base.WithTitle("Index"),
+		base.WithStylesheets(
+			"/static/css/output.css",
+		),
+		base.WithHeadScripts(
+			"/static/js/htmx.min.js",
+		),
+		base.WithFooterScripts(
+			"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js",
+		),
+		base.WithBodyCss("h-full overflow-hidden"),
+	) {
+		<h1>Page Content</h1>
+		<p>This is the main content area.</p>
+	}
+}

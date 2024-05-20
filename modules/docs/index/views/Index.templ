@@ -1,0 +1,30 @@
+package views
+
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/templwind/templwind/components/appbar"
+	"github.com/templwind/docs/modules/docs/layout"
+)
+
+templ Index(r *http.Request, section string) {
+	@layout.CommonLayout(r) {
+		@appbar.New(
+			appbar.WithAppBarClasses("border-b"),
+		) {
+			Page App Bar
+		}
+		<div
+			class="p-4"
+			hx-get={ fmt.Sprintf("/docs/menu/%s", section) }
+			hx-target="#sidenav"
+			hx-trigger="load"
+			hx-swap="outerHTML"
+		>
+			{ section }
+			<h1>Page Content</h1>
+			<p>This is the main content area.</p>
+		</div>
+	}
+}

@@ -1,0 +1,71 @@
+package layout
+
+import (
+	"net/http"
+
+	"github.com/templwind/templwind/components/appbar"
+	"github.com/templwind/templwind/components/apprail"
+	"github.com/templwind/templwind/components/appshell"
+	"github.com/templwind/templwind/components/sidenav"
+	"github.com/templwind/templwind/layouts/base"
+	"github.com/templwind/templwind/layouts/app"
+)
+
+templ CommonLayout(r *http.Request) {
+	@app.Layout(
+		app.WithHttpRequest(r),
+		app.WithBaseProps(
+			base.WithHttpRequest(r),
+			base.WithTitle("Index"),
+			base.WithStylesheets(
+				"/static/css/output.css",
+			),
+			base.WithHeadScripts(
+				"/static/js/htmx.min.js",
+			),
+			base.WithFooterScripts(
+				"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js",
+			),
+			base.WithBodyCss("h-full overflow-hidden"),
+		),
+		app.WithAppShellProps(
+			appshell.WithSidebarLeft(SidebarLeft()),
+			// appshell.WithSidebarRight(SideBarRight()),
+			appshell.WithFooter(Footer()),
+			appshell.WithHeader(HeaderAppBar()),
+		),
+	) {
+		{ children... }
+	}
+}
+
+templ HeaderAppBar() {
+	@appbar.New(
+		appbar.WithAppBarClasses("border-b"),
+	) {
+		App Bar
+	}
+}
+
+templ SidebarLeft() {
+	<div class="grid grid-cols-[auto_1fr] h-full bg-surface-50-900-token border-r border-surface-500/30">
+		@apprail.New(RailMenu)
+		<div class="min-w-48 overflow-y-auto">
+			@sidenav.New(
+				SideMenu["docs"],
+			)
+		</div>
+	</div>
+}
+
+templ SideBarRight() {
+	@apprail.New() {
+		<h2>AppRail</h2>
+	}
+}
+
+templ Footer() {
+	<footer class="bg-gray-800 text-white p-4">
+		<p>Footer content</p>
+	</footer>
+}
