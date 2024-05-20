@@ -23,3 +23,5 @@ go.work
 node_modules/
 tpl/
 style/
+vendor/
+tmp/
