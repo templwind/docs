@@ -1,10 +1,10 @@
 root = "."
-tmp_dir = "./docs/tmp"
+tmp_dir = "./tmp"
 
 [build]
 args_bin = ["serve"]
-bin = "./docs/tmp/main"
-cmd = "./kill_app.sh && templ generate && ./kill_app.sh && go build -o ./docs/tmp/main ./docs"
+bin = "./tmp/main"
+cmd = "templ generate && go build -o ./tmp/main ./"
 delay = 1000
 exclude_dir = ["assets", "tmp", "vendor", "tpl"]
 exclude_file = []
